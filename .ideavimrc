@@ -1,34 +1,44 @@
 set scrolloff=5
 
-" 同步系统的剪切板
-"set clipboard=unnamed,unnamedplus
-
-" Do incremental searching.
-set easymotion
-set surround
-set ideajoin
-
 " 设置leader键为空格
 nnoremap <SPACE> <Nop>
 let mapleader = " "
 
+" 同步系统的剪切板
+" set clipboard=unnamed,unnamedplus
+
 " search
-set hlsearch
-set incsearch
-set smartcase
-set ignorecase
-set showmode
-set which-key
+set hlsearch "高亮显示匹配的搜索结果
+set incsearch "输入搜索模式时，每输入一个字符，就自动跳到第一个匹配的结果
+set smartcase "如果同时打开了ignorecase，那么对于只有一个大写字母的搜索词，将大小写敏感；其他情况都是大小写不敏感。比如，搜索Test时，将不匹配test；搜索test时，将匹配Test。
+set ignorecase "搜索时忽略大小写
+set showmatch "光标遇到圆括号、方括号、大括号时，自动高亮对应的另一个圆括号、方括号和大括号
+
+set showmode "在底部显示，当前处于命令模式还是插入模式
+
 set de=on
-set scrolloff=5
+set scrolloff=5 "垂直滚动时，光标距离顶部 / 底部的位置（单位：行）
 
 " plugins
 nnoremap == :action ReformatCode<CR>
-set ideamarks
 set easymotion
 set surround
-set argtextobj
+set ideajoin
 set multiple-cursors
+
+"set which-key
+"set timeoutlen=500
+"nnoremap <leader> :WhichKey <CR>  
+
+set ideamarks
+set argtextobj
+set exchange
+set highlightedyank
+set textobj-entire
+set keep-english-in-normal-and-restore-in-insert
+set NERDTree
+set ReplaceWithRegister
+
 " Remap multiple-cursors shortcuts for Mac
 "nmap <C-n> <Plug>NextWholeOccurrence
 "xmap <C-n> <Plug>NextWholeOccurrence
@@ -39,12 +49,7 @@ set multiple-cursors
 "nmap <S-C-n> <Plug>AllWholeOccurrences
 "xmap <S-C-n> <Plug>AllWholeOccurrences
 
-set exchange
-set highlightedyank
-set textobj-entire
-set keep-english-in-normal-and-restore-in-insert
-set NERDTree
-set ReplaceWithRegister
+
 " basic key mapping 键位映射
 nnoremap L $
 vnoremap H ^
@@ -53,15 +58,21 @@ vnoremap L $
 
 inoremap jk <ESC>
 " nerdtre 
-"map <leader>e :action SelectInProjectView<CR>
 nnoremap <leader>d :NERDTreeFocus<CR>
 nnoremap <leader>dd :NERDTreeToggle<CR>
 nnoremap <A-d> :NERDTree<CR>
+" 到当前的文件位置
 nnoremap <leader>sp :action SelectInProjectView<CR>
+nnoremap <leader>gc :action Git.CompareWithBranch<CR>
+"nnoremap <leader>at :action Annotate<CR>
+" 查看文件
+nnoremap <leader>fh :action Vcs.ShowTabbedFileHistory<CR>
+" 新建文件
+nnoremap <leader>nj :action NewClass<CR>
+"nnoremap <leader>r :action RecentFiles<CR>
+" 书签
+nnoremap <leader>bm :action Bookmarks<CR>
 
-
-""" Idea specific settings ------------------
-set ideajoin
 set idearefactormode=keep
 " clear the highlighted search result
 nnoremap <Leader>ns :nohlsearch<CR>
@@ -77,7 +88,7 @@ nnoremap <leader>wo <C-W>o
 nnoremap <leader>wd <C-W>c
 " 向下移动窗口
 nnoremap <leader>wj <C-W>j
-" 向上移动窗口
+"symotion-s) 向上移动窗口
 nnoremap <leader>wk <C-W>k
 nnoremap <leader>wh <C-W>h
 nnoremap <leader>wl <C-W>l
@@ -115,7 +126,7 @@ inoremap <C-d> <Delete>
 nnoremap <leader>ve :e ~/.ideavimrc<CR>
 nnoremap <leader>vw :w!<CR>
 nnoremap <leader>vs :source ~/.ideavimrc<CR>
-"toggle track vim action Id
+" idea提示action
 nnoremap <leader>ta :action VimFindActionIdAction<CR>
 
 " intellij built in key map
@@ -126,15 +137,9 @@ nnoremap <leader>se :action SearchEverywhere<CR>
 noremap <leader>sf :action GotoFile<CR>
 noremap <leader>ss :action FindInPath<CR>
 
-nnoremap <leader>gc :action Git.CompareWithBranch<CR>
-"nnoremap <leader>at :action Annotate<CR>
-nnoremap <leader>fh :action Vcs.ShowTabbedFileHistory<CR>
-nnoremap <leader>nj :action NewClass<CR>
-"nnoremap <leader>r :action RecentFiles<CR>
-nnoremap <leader>bm :action Bookmarks<CR>
 " 使用ide的前进后退
-" nnoremap <C-o> :action Back<CR>
-" nnoremap <C-i> :action Forward<CR>
+nnoremap <C-o> :action Back<CR>
+nnoremap <C-i> :action Forward<CR>
 
 nnoremap gs :action GotoSuperMethod<CR>
 " 跳转到上次修改的位置
@@ -147,15 +152,15 @@ nnoremap gi :action GotoImplementation<CR>
 nnoremap gf :action FileStructurePopup<CR>
 
 " 查看使用
-nnoremap <leader>u:action FindUsages<CR>
+nnoremap <leader>u :action FindUsages<CR>
 " 重命名
 nnoremap <leader>r :action RenameElement<CR>
 nnoremap <leader>== :action ReformatCode<CR>
 vnoremap <leader>= :action ReformatCode<CR>
 nnoremap <leader>-- :action OptimizeImports<CR>
 " 注释
-nnoremap <leader>cc :action CommentByLineComment<CR>
-vnoremap <leader>cc :action CommentByLineComment<CR>
+"nnoremap <leader>cc :action CommentByLineComment<CR>
+"vnoremap <leader>cc :action CommentByLineComment<CR>
 
 
 " build and compile code
@@ -163,10 +168,9 @@ nnoremap <leader>mr :action Maven.Reimport<CR>
 
 "toggle something
 
-
 " run and debug
-"nnoremap ,d :action Debug<CR>
-"nnoremap ,r :action Run<CR>
+nnoremap ,d :action Debug<CR>
+nnoremap ,r :action Run<CR>
 "nnoremap ,c :action CompileDirty<CR>
 "nnoremap ,b :action ToggleLineBreakpoint<CR>
 "nnoremap ,v :action ViewBreakpoints<CR>
