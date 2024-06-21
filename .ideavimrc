@@ -5,7 +5,13 @@ nnoremap <SPACE> <Nop>
 let mapleader = " "
 
 " 同步系统的剪切板
-" set clipboard=unnamed,unnamedplus
+"set clipboard=unnamed,unnamedplus
+
+" 需要安装插件IdeaVimExtension，并配置英文键盘，使用Smart input好点
+" 在normal模式保持英文 
+"set keep-english-in-norma
+" 在normal模式保持英文状态,并在回到insert时恢复输入法到原来的状态.
+"set keep-english-in-normal-and-restore-in-insert
 
 " search
 set hlsearch "高亮显示匹配的搜索结果
@@ -15,11 +21,12 @@ set ignorecase "搜索时忽略大小写
 set showmatch "光标遇到圆括号、方括号、大括号时，自动高亮对应的另一个圆括号、方括号和大括号
 
 set showmode "在底部显示，当前处于命令模式还是插入模式
+" set cursorline "高亮显示当前行
 
 set de=on
 set scrolloff=5 "垂直滚动时，光标距离顶部 / 底部的位置（单位：行）
 
-" plugins
+" plugins 
 nnoremap == :action ReformatCode<CR>
 set easymotion
 set surround
@@ -27,7 +34,8 @@ set ideajoin
 set multiple-cursors
 
 "set which-key
-"set timeoutlen=500
+" 修改命令的响应时间
+set timeoutlen=600
 "nnoremap <leader> :WhichKey <CR>  
 
 set ideamarks
@@ -65,10 +73,10 @@ nnoremap <A-d> :NERDTree<CR>
 nnoremap <leader>sp :action SelectInProjectView<CR>
 nnoremap <leader>gc :action Git.CompareWithBranch<CR>
 "nnoremap <leader>at :action Annotate<CR>
-" 查看文件
+" 查看文件历史记录
 nnoremap <leader>fh :action Vcs.ShowTabbedFileHistory<CR>
 " 新建文件
-nnoremap <leader>nj :action NewClass<CR>
+nnoremap <leader>nc :action NewClass<CR>
 "nnoremap <leader>r :action RecentFiles<CR>
 " 书签
 nnoremap <leader>bm :action Bookmarks<CR>
@@ -100,9 +108,9 @@ noremap <leader>wv <C-W>v
 nnoremap <leader>w\| <C-W>v
 
 " copy and paste
-noremap <Leader>y "*y
-noremap <Leader>p "*p
-noremap <Leader>P "0p
+" noremap <Leader>y "*y
+" noremap <Leader>p "*p
+" noremap <Leader>P "0p
 "vnoremap Y "+y
 
 " Tab operation
@@ -136,6 +144,7 @@ nnoremap <leader>sc :action GotoClass<CR>
 nnoremap <leader>se :action SearchEverywhere<CR>
 noremap <leader>sf :action GotoFile<CR>
 noremap <leader>ss :action FindInPath<CR>
+" noremap <leader>f :action Find<CR>
 
 " 使用ide的前进后退
 nnoremap <C-o> :action Back<CR>
