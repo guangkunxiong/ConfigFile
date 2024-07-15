@@ -23,21 +23,20 @@ nnoremap <leader>h gT
 nnoremap <C-o> :vsc View.NavigateBackward<CR>
 nnoremap <C-i> :vsc View.NavigateForward<CR>
 
-map gd :vsc ReSharper.ReSharper_GotoDeclaration<CR>
-map gi :vsc ReSharper.ReSharper_GotoImplementations<CR>
-map gu:vsc ReSharper.ReSharper_FindUsages<CR>
 
-map <leader>r :vsc ReSharper.ReSharper_Rename<CR>
-map <leader>f :vsc ReSharper.ReSharper_GotoFileMember<CR>
-map <leader>sf :vsc ReSharper.ReSharper_GotoFile<CR>
-map <leader>sa :vsc ReSharper.ReSharper_GotoAction<CR>
+nnoremap gd :vsc Edit.GoToDeclaration<CR>
+nnoremap gi :vsc Edit.GoToDefinition<CR>
+nnoremap gu :vsc Edit.FindAllReferences<CR>
 
-map <leader>e :vsc ReSharper.ReSharper_GotoNextErrorInSolution<CR>
-map <leader>E :vsc ReSharper.ReSharper_GotoPrevErrorInSolution<CR>
-map <leader>q :vsc ReSharper.ReSharper_QuickDoc<CR>
-map <leader>t :vsc ReSharper.ReSharper_SurroundWith<CR>
-map <leader>bm :vsc ReSharper.ReSharper_BookmarksBookmarksMenu<CR>
+nnoremap <leader>r :vsc Refactor.Rename<CR>
+nnoremap <leader>f :vsc Edit.Find<CR>
+nnoremap <leader>sf :vsc Edit.NavigateTo<CR>
+nnoremap <leader>sa :vsc Edit.NavigateTo<CR>
+nnoremap <leader>fm :vsc Edit.FormatDocument<CR>
 
-
-map ] :vsc ReSharper.ReSharper_GotoNextMethod<CR>
-map [ :vsc ReSharper.ReSharper_GotoPrevMethod<CR>
+nnoremap <leader>e :vsc View.NextError<CR>
+nnoremap <leader>E :vsc View.ErrorList<CR>
+nnoremap <leader>q :vsc Edit.FormatDocument<CR>
+nnoremap <leader>t :vsc Edit.SurroundWith<CR>
+nnoremap <leader>bm :vsc Edit.ToggleBookmark<CR>
+nnoremap <leader>bmw :vsc Edit.View.BookmarkWindow<CR>
