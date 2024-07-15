@@ -69,21 +69,30 @@ inoremap jk <ESC>
 nnoremap <leader>d :NERDTreeFocus<CR>
 nnoremap <leader>dd :NERDTreeToggle<CR>
 nnoremap <A-d> :NERDTree<CR>
+
 " 到当前的文件位置
 nnoremap <leader>sp :action SelectInProjectView<CR>
 nnoremap <leader>gc :action Git.CompareWithBranch<CR>
 "nnoremap <leader>at :action Annotate<CR>
+
 " 查看文件历史记录
 nnoremap <leader>fh :action Vcs.ShowTabbedFileHistory<CR>
+
 " 新建文件
 nnoremap <leader>nc :action NewClass<CR>
 "nnoremap <leader>r :action RecentFiles<CR>
+
 " 书签
 nnoremap <leader>bm :action Bookmarks<CR>
 
 set idearefactormode=keep
 " clear the highlighted search result
 nnoremap <Leader>ns :nohlsearch<CR>
+
+" Tab operation
+" 前后跳转标签页
+nnoremap <leader>l gt
+nnoremap <leader>h gT
 
 " easymotion
 map <leader>f <Plug>(easymotion-s)
@@ -113,10 +122,7 @@ nnoremap <leader>w\| <C-W>v
 " noremap <Leader>P "0p
 "vnoremap Y "+y
 
-" Tab operation
-" 前后跳转标签页
-nnoremap <leader>l gt
-nnoremap <leader>h gT
+
 
 " Insert mode shortcut
 inoremap <C-h> <Left>
@@ -159,18 +165,11 @@ nnoremap gd :action GotoDeclaration<CR>
 nnoremap gi :action GotoImplementation<CR>
 " 打开当前文件的结构弹窗
 nnoremap gf :action FileStructurePopup<CR>
+" 查看引用
+nnoremap gu :action FindUsages<CR>
 
-" 查看使用
-nnoremap <leader>u :action FindUsages<CR>
 " 重命名
 nnoremap <leader>r :action RenameElement<CR>
-nnoremap <leader>== :action ReformatCode<CR>
-vnoremap <leader>= :action ReformatCode<CR>
-nnoremap <leader>-- :action OptimizeImports<CR>
-" 注释
-"nnoremap <leader>cc :action CommentByLineComment<CR>
-"vnoremap <leader>cc :action CommentByLineComment<CR>
-
 
 " build and compile code
 nnoremap <leader>mr :action Maven.Reimport<CR>
