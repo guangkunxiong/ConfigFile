@@ -1,201 +1,109 @@
-set scrolloff=5
+" ==========================================
+" 基础设置 (Basic Settings)
+" ==========================================
+let mapleader = " "        " Leader键设为空格
+set scrolloff=5            " 光标距离底部5行时就开始滚动
+set hlsearch               " 高亮搜索
+set incsearch              " 增量搜索
+set ignorecase             " 忽略大小写
+set smartcase              " 智能大小写
+set showmode               " 显示当前模式
+set clipboard+=unnamed     " 使用系统剪贴板
 
-" 设置leader键为空格
-nnoremap <SPACE> <Nop>
-let mapleader = " "
-
-" 同步系统的剪切板
-"set clipboard=unnamed,unnamedplus
-
-" 需要安装插件IdeaVimExtension，并配置英文键盘，使用Smart input好点
-" 在normal模式保持英文 
-"set keep-english-in-norma
-" 在normal模式保持英文状态,并在回到insert时恢复输入法到原来的状态.
-"set keep-english-in-normal-and-restore-in-insert
-
-" search
-set hlsearch "高亮显示匹配的搜索结果
-set incsearch "输入搜索模式时，每输入一个字符，就自动跳到第一个匹配的结果
-set smartcase "如果同时打开了ignorecase，那么对于只有一个大写字母的搜索词，将大小写敏感；其他情况都是大小写不敏感。比如，搜索Test时，将不匹配test；搜索test时，将匹配Test。
-set ignorecase "搜索时忽略大小写
-set showmatch "光标遇到圆括号、方括号、大括号时，自动高亮对应的另一个圆括号、方括号和大括号
-
-set showmode "在底部显示，当前处于命令模式还是插入模式
-" set cursorline "高亮显示当前行
-
-set de=on
-set scrolloff=5 "垂直滚动时，光标距离顶部 / 底部的位置（单位：行）
-
-" plugins 
-nnoremap == :action ReformatCode<CR>
+" ==========================================
+" 插件开启 (Plugins)
+" ==========================================
+" 确保你在 IDEA 设置 > Plugins 里安装了 IdeaVim, IdeaVim-EasyMotion, IdeaVim-Sneak
 set easymotion
 set surround
-set ideajoin
 set multiple-cursors
+set commentary             " 推荐：开启 gc 注释功能
+set sneak                  " 开启 Sneak
 
-"set which-key
-" 修改命令的响应时间
-set timeoutlen=600
-"nnoremap <leader> :WhichKey <CR>  
+" ==========================================
+" 键位映射 (Key Mappings)
+" ==========================================
 
-set ideamarks
-set argtextobj
-set exchange
-set highlightedyank
-set textobj-entire
-set keep-english-in-normal-and-restore-in-insert
-set NERDTree
-set ReplaceWithRegister
+" --- 1. 核心生存法则 ---
+" 秒退 Insert 模式
+inoremap jj <Esc>
+inoremap jk <Esc>
 
-" Remap multiple-cursors shortcuts for Mac
-"nmap <C-n> <Plug>NextWholeOccurrence
-"xmap <C-n> <Plug>NextWholeOccurrence
-"nmap <C-x> <Plug>SkipOccurrence
-"xmap <C-x> <Plug>SkipOccurrence
-"nmap <C-p> <Plug>RemoveOccurrence
-"xmap <C-p> <Plug>RemoveOccurrence
-"nmap <S-C-n> <Plug>AllWholeOccurrences
-"xmap <S-C-n> <Plug>AllWholeOccurrences
-
-
-" basic key mapping 键位映射
+" 行首行尾强行跳转
+nnoremap H ^
 nnoremap L $
 vnoremap H ^
-nnoremap H ^
 vnoremap L $
 
-inoremap jk <ESC>
-" nerdtre 
-nnoremap <leader>d :NERDTreeFocus<CR>
-nnoremap <leader>dd :NERDTreeToggle<CR>
-nnoremap <A-d> :NERDTree<CR>
+" 清除搜索高亮 (<Space>ns)
+nnoremap <leader>ns :nohlsearch<CR>
 
-" 到当前的文件位置
-nnoremap <leader>sp :action SelectInProjectView<CR>
-nnoremap <leader>gc :action Git.CompareWithBranch<CR>
-"nnoremap <leader>at :action Annotate<CR>
+" 保存文件 (<Space>fs)
+nnoremap <leader>fs :action SaveAll<CR>
 
-" 查看文件历史记录
-nnoremap <leader>fh :action Vcs.ShowTabbedFileHistory<CR>
+" --- 2. 标签页与文件跳转 ---
+" 左右切换标签页 (<Space>j / <Space>k)
+nnoremap <leader>j :action PreviousTab<CR>
+nnoremap <leader>k :action NextTab<CR>
 
-" 新建文件
-nnoremap <leader>nc :action NewClass<CR>
-"nnoremap <leader>r :action RecentFiles<CR>
+" 关闭当前标签页 (<Space>wc) - 放在窗口管理里也可以，但在IDEA里通常是关闭Tab
+nnoremap <leader>wc :action CloseContent<CR>
 
-" 书签
-nnoremap <leader>bm :action Bookmarks<CR>
+" 文件搜索 (<Space>ff -> Cmd+P)
+nnoremap <leader>ff :action GotoFile<CR>
+" 全局搜索 (<Space>ss -> Cmd+Shift+F)
+nnoremap <leader>ss :action FindInPath<CR>
+" 打开侧边栏 (<Space>e)
+nnoremap <leader>e :action SelectInProjectView<CR>
+" 最近文件 (<Space>r) - 既然用了ff，这个可选
+nnoremap <leader>fr :action RecentFiles<CR>
 
-set idearefactormode=keep
-" clear the highlighted search result
-nnoremap <Leader>ns :nohlsearch<CR>
+" --- 3. 窗口管理 (Split Windows) ---
+" 竖向拆分 (<Space>wv)
+nnoremap <leader>wv :action SplitVertically<CR>
+" 横向拆分 (<Space>ws)
+nnoremap <leader>ws :action SplitHorizontally<CR>
+" 在窗口间循环切换 (<Space>ww)
+nnoremap <leader>ww :action NextSplitter<CR>
+" 关闭当前分割窗口 (<Space>wd)
+nnoremap <leader>wd :action Unsplit<CR>
 
-" Tab operation
-" 前后跳转标签页
-nnoremap <leader>l gt
-nnoremap <leader>h gT
+" --- 4. 代码重构与操作 ---
+" 格式化整个文件 (<Space>=)
+nnoremap <leader>= :action ReformatCode<CR>
+" 重命名 (<Space>r)
+nnoremap <leader>r :action RenameElement<CR>
+" 跳转定义 (gd) - IdeaVim 默认支持，或者显式映射
+nnoremap gd :action GotoDeclaration<CR>
+" 查看引用 (gr)
+nnoremap gr :action FindUsages<CR>
+" 跳转实现 (gi)
+nnoremap gi :action GotoImplementation<CR>
 
-" easymotion
-map <leader>f <Plug>(easymotion-s)
-" Window operation
-" 切换窗口
-nnoremap <leader>ww <C-W>w
-" only 除此之外全部关闭
-nnoremap <leader>wo <C-W>o
-" 关闭窗口
-nnoremap <leader>wd <C-W>c
-" 向下移动窗口
-nnoremap <leader>wj <C-W>j
-"symotion-s) 向上移动窗口
-nnoremap <leader>wk <C-W>k
-nnoremap <leader>wh <C-W>h
-nnoremap <leader>wl <C-W>l
-" 向下拆分
-nnoremap <leader>ws <C-W>s
-nnoremap <leader>w- <C-W>s
-" 横向拆分
-noremap <leader>wv <C-W>v
-nnoremap <leader>w\| <C-W>v
+" --- 5. EasyMotion 配置 ---
+" 映射 <Space>j 为 EasyMotion 跳转 (和 VS Code 保持一致)
+" 注意：IdeaVim-EasyMotion 默认前缀是 <Leader><Leader>
+map <leader>j <Plug>(easymotion-s)
 
-" copy and paste
-" noremap <Leader>y "*y
-" noremap <Leader>p "*p
-" noremap <Leader>P "0p
-"vnoremap Y "+y
+" --- 6. Sneak 改键 (把 z 变成 Sneak，把 s 还原) ---
+" 映射 z 为 Sneak (向前)
+map z <Plug>Sneak_s
+" 映射 Z 为 Sneak (向后)
+map Z <Plug>Sneak_S
 
+" 把 s 还原为 cl (修改字符) - 因为 Sneak 默认占用了 s
+map s cl
+map S cc
 
-
-" Insert mode shortcut
-inoremap <C-h> <Left>
-inoremap <C-j> <Down>
-inoremap <C-l> <Right>
-inoremap <C-i> <Home>
-inoremap <C-a> <End>
-inoremap <C-d> <Delete>
-
-" Quit normal mode
-"nnoremap <Space>q  :action CloseProject<CR>
-"nnoremap <Space>Q  :qa!<CR>
-
-" edit vimrc
-nnoremap <leader>ve :e ~/.ideavimrc<CR>
-nnoremap <leader>vw :w!<CR>
-nnoremap <leader>vs :source ~/.ideavimrc<CR>
-" idea提示action
-nnoremap <leader>ta :action VimFindActionIdAction<CR>
-
-" intellij built in key map
-" search
-nnoremap <leader>sa :action GotoAction<CR>
-nnoremap <leader>sc :action GotoClass<CR>
-nnoremap <leader>se :action SearchEverywhere<CR>
-noremap <leader>sf :action GotoFile<CR>
-noremap <leader>ss :action FindInPath<CR>
-" noremap <leader>f :action Find<CR>
-
-" 使用ide的前进后退
+" --- 7. 历史跳转 ---
+" 跳回上一次修改位置 (gb)
+nnoremap gb :action JumpToLastChange<CR>
+" 前进/后退 (Ctrl+o/i) - IdeaVim 默认支持，显式映射防冲突
 nnoremap <C-o> :action Back<CR>
 nnoremap <C-i> :action Forward<CR>
 
-nnoremap gs :action GotoSuperMethod<CR>
-" 跳转到上次修改的位置
-nnoremap gb :action JumpToLastChange<CR>
-" 跳转到引用
-nnoremap gd :action GotoDeclaration<CR>
-" 跳转到实现
-nnoremap gi :action GotoImplementation<CR>
-" 打开当前文件的结构弹窗
-nnoremap gf :action FileStructurePopup<CR>
-" 查看引用
-nnoremap gu :action FindUsages<CR>
-
-" 重命名
-nnoremap <leader>r :action RenameElement<CR>
-
-" build and compile code
-nnoremap <leader>mr :action Maven.Reimport<CR>
-
-"toggle something
-
-" run and debug
-nnoremap ,d :action Debug<CR>
-nnoremap ,r :action Run<CR>
-"nnoremap ,c :action CompileDirty<CR>
-"nnoremap ,b :action ToggleLineBreakpoint<CR>
-"nnoremap ,v :action ViewBreakpoints<CR>
-
-"nmap <C-j> :action StepOver<CR>
-"nmap <C-k> :action Resume<CR>
-"nmap <C-h> :action StepOut<CR>
-"nmap <C-l> :action ForceStepInto<CR>
-
-" ide actions
-
-"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
-"" Map \r to the Reformat Code action
-"map \r <Action>(ReformatCode)
-
-"" Map <leader>d to start debug
-"map <leader>d <Action>(Debug)
-
-"" Map \b to toggle the breakpoint on the current line
-"map \b <Action>(ToggleLineBreakpoint)
+" ==========================================
+" 输入法切换 (Mac)
+" ==========================================
+" 需要在 IDEA 设置 > Editor > Vim > Smart Input 开启，或者使用下面的配置
+set keep-english-in-normal-and-restore-in-insert
